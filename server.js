@@ -32,17 +32,17 @@ app.get("/api/timestamp/:date?", (req, res) => {
   const d = req.params.date;
   if (!d) {
     const now = new Date();
-    return res.json({ "unix": now.getTime(), "utc": now.toUTCString() });
+    return res.json({ "unix": Date.valueOf(now), "utc": now.toUTCString() });
   }
   else if (d instanceof Date && !isNaN(d)) {
-    return res.json({ "unix": new Date(d).getTime(), "utc": new Date(d).toUTCString() });
+    return res.json({ "unix": Date.valueOf(d), "utc": new Date(d).toUTCString() });
   }
   return res.status(400).json({ "error": "Invalid Date"});
 });
 
 app.get("/api/timestamp", (req, res) => {
   const d = new Date();
-  return res.json({ "unix": d.getTime(), "utc": d.toUTCString() });
+  return res.json({ "unix": Date.valueOf(d), "utc": d.toUTCString() });
 });
 
 // listen for requests :)
