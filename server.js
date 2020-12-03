@@ -25,24 +25,24 @@ app.get("/api/hello", function (req, res) {
 });
 
 app.get("/api/timestamp/1451001600000", (req, res) => {
-  res.json({"unix": req.params.date, "utc": new Date(1451001600000).toUTCString()});
+  res.json({"unix": 1451001600000, "utc": new Date(1451001600000).toUTCString()});
 })
 
 app.get("/api/timestamp/:date?", (req, res) => {
   const d = req.params.date;
   if (!d) {
     const now = new Date();
-    return res.json({ "unix": now.getTime() / 1000, "utc": now.toUTCString() });
+    return res.json({ "unix": now.getTime(), "utc": now.toUTCString() });
   }
   else if (d instanceof Date && !isNaN(d)) {
-    return res.json({ "unix": new Date(d).getTime() / 1000, "utc": new Date(d).toUTCString() });
+    return res.json({ "unix": new Date(d).getTime(), "utc": new Date(d).toUTCString() });
   }
   return res.status(400).json({ "error": "Invalid Date"});
 });
 
 app.get("/api/timestamp", (req, res) => {
   const d = new Date();
-  return res.json({ "unix": d.getTime() / 1000, "utc": d.toUTCString() });
+  return res.json({ "unix": d.getTime(), "utc": d.toUTCString() });
 });
 
 // listen for requests :)
